@@ -25,11 +25,11 @@ OpenChill is an open source laser chiller firmware and hardware project using re
 
 ## Non standard bits and pieces
 
-| A water cooler with a working condensor/fridge mechanism.  We will be removing the thermostat that it has and installing OpenChill. |
-| A BBQ temperature probe, something waterproof, metal casing preferred that will sit in the water cooler reservoir to monitor the temperature of the chilled water |
+* A water cooler with a working condensor/fridge mechanism.  We will be removing the thermostat that it has and installing OpenChill. 
+* A BBQ temperature probe, something waterproof, metal casing preferred that will sit in the water cooler reservoir to monitor the temperature of the chilled water 
 
 
 ## Downloads 
-OpenChill Uno Firmware
-OpenChill ESP Firmware
-OpenChill Windows Monitoring Tool
+* OpenChill Uno Firmware
+* OpenChill ESP Firmware
+* OpenChill Windows Monitoring Tool
