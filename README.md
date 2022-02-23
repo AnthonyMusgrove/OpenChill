@@ -2,13 +2,14 @@
 OpenChill is an open source laser chiller firmware and hardware project using readily available parts from JayCar (Australia)
 
 ## Why OpenChill?
-A Co2 laser tube requires water cooling to maintain power, longevity and safety of the equipment.  The issue is, if the water can't be kept cool enough, the laser starts to lose power and over time, degrades and becomes unusable quicker.  Why can't we just pump icy cold water through it then using a fridge or freezer?  Well, great question, it turns out that condensation buildup on and inside the laser tube causes 'arcing' and 'shorting' which can be harmful or fatal to YOU, the operator, and your laser.   This is where OpenChill comes into play.
+<p>A Co2 laser tube requires water cooling to maintain power, longevity and safety of the equipment.  The issue is, if the water can't be kept cool enough, the laser starts to lose power and over time, degrades and becomes unusable quicker.</p>  
+<p>Why can't we just pump icy cold water through it then using a fridge or freezer?  Well, great question, it turns out that condensation buildup on and inside the laser tube causes 'arcing' and 'shorting' which can be harmful or fatal to YOU, the operator, and your laser.</p><p>  This is where OpenChill comes into play.</p>
 <br/>
-OpenChill monitors the room's Humidity and Temperature using a sensor connected to the control board.  It then calculates the room's "dew point", which is the temperature in which the tubing will begin to generate condensation.  The firmware allows you to configure various settings (via wifi/web browser, and eventually a windows app), such as 'Set temperature of chiller dynamic to 3 degrees celsius ABOVE dew point', etcetera.  It will allow for remote monitoring and configuration, and eventually a touch screen, mounts, and more. It will also incorporate the K40 laser 'Cooler Warning' signal wire to shut the laser down incase certain conditions are met.
+<p>OpenChill monitors the room's Humidity and Temperature using a sensor connected to the control board.  It then calculates the room's "dew point", which is the temperature in which the tubing will begin to generate condensation. </p><p> The firmware allows you to configure various settings (via wifi/web browser, and eventually a windows app), such as 'Set temperature of chiller dynamic to 3 degrees celsius ABOVE dew point', etcetera. <p></p> It will allow for remote monitoring and configuration, and eventually a touch screen, mounts, and more. It will also incorporate the K40 laser 'Cooler Warning' signal wire to shut the laser down incase certain conditions are met.</p>
 <br/>
-The sky is truly the limit with OpenChill and I can't wait to see the progress over time of this awesome project.
+<p>The sky is truly the limit with OpenChill and I can't wait to see the progress over time of this awesome project.</p>
 <br/>
-Images, instructions, firmware, etc all in progress of ALPHA, once ready for initial commit we can begin group collaboration.
+<p>Images, instructions, firmware, etc all in progress of ALPHA, once ready for initial commit we can begin group collaboration.</p>
 
 ## Parts List
 
