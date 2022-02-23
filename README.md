@@ -1,6 +1,8 @@
 # OpenChill
 OpenChill is an open source laser chiller firmware and hardware project using readily available parts from JayCar (Australia)
 
+![OpenChill](OpenChill.png)
+
 ## Why OpenChill?
 <p>A Co2 laser tube requires water cooling to maintain power, longevity and safety of the equipment.  The issue is, if the water can't be kept cool enough, the laser starts to lose power and over time, degrades and becomes unusable quicker.</p>  
 <p>Why can't we just pump icy cold water through it then using a fridge or freezer?  Well, great question, it turns out that condensation buildup on and inside the laser tube causes 'arcing' and 'shorting' which can be harmful or fatal to YOU, the operator, and your laser.</p><p>  This is where OpenChill comes into play.</p>
