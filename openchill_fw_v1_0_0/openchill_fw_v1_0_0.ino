@@ -26,13 +26,14 @@
 /*
  * PIN Configuration
  */
- 
-#define DHT11_PIN 9   /* Arduino Digital Pin for the Signal Wire of the DHT11 Temperature & Humidity Sensor */
-#define RESERVOIR_TEMP_PROBE_PIN A3  /* Arduino Analog Pin for the Chiller Temperature Probe Circuit Reading */
+#define SAFETY_CUTOFF_SIGNAL_PIN 6 /* OUTPUT Signal wire for OpenChill to direct laser to cease operating  */
+#define LASER_IN_USE_PIN 7 /* INPUT Signal wire from laser to advise OpenChill that laser is currently in use */
 #define FRIDGE_RELAY_PIN 8 /* Arduino Digital Pin for the Fridge Relay Circuit */
+#define DHT11_PIN 9   /* Arduino Digital Pin for the Signal Wire of the DHT11 Temperature & Humidity Sensor */
 #define BUZZER_PIN 10 /* Arduino Digital PWM Piezzo/Buzzer Pin */
 
-#define DEBUG_RELAY_PIN 3 /* Debug Relay Pin for Firmware ALPHA, not used in O/S release. */
+#define RESERVOIR_TEMP_PROBE_PIN A3  /* Arduino Analog Pin for the Chiller Temperature Probe Circuit Reading */
+
 
 #include <dht.h>
 dht DHT;
@@ -63,7 +64,8 @@ void setup() {
   digitalWrite(FRIDGE_RELAY_PIN, LOW); /* Make sure initially we have the Fridge relay off */
   FridgeOn = false; /* Keep track of fridge circuit status, we've switched it off */
 
-  pinMode(DEBUG_RELAY_PIN, OUTPUT); /* Debug Relay Pin for Firmware ALPHA, not used in O/S release */
+  pinMode(SAFETY_CUTOFF_SIGNAL_PIN, OUTPUT); /* OUTPUT Signal wire for OpenChill to direct laser to cease operating  */
+  pinMode(LASER_IN_USE_PIN, INPUT); /* INPUT Signal wire from laser to advise OpenChill that laser is currently in use */
 }
 
 /*
@@ -249,6 +251,11 @@ void cmd_set_debug_relay(String Flag)
 
 void setEnvironmentAlert()
 {
+
+  //TODO:  Define a config flag for whether or not to send signal to laser to pause on alert(s)
+  // Pin defined as SAFETY_CUTOFF_SIGNAL_PIN (digital pin 6)
+  
+  
   if(currentReservoirTemperature > MAX_TEMPERATURE_ALERT)
   {
     tone(BUZZER_PIN, 1000);
