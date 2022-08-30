@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenChill_SerialMon", "OpenChill_SerialMon\OpenChill_SerialMon.csproj", "{DE77097D-C690-4096-A562-E5C846F47D22}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE77097D-C690-4096-A562-E5C846F47D22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE77097D-C690-4096-A562-E5C846F47D22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE77097D-C690-4096-A562-E5C846F47D22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE77097D-C690-4096-A562-E5C846F47D22}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A91BE61-35A6-4CE4-99AC-6EB820748DC4}
+	EndGlobalSection
+EndGlobal
