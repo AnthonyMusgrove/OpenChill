@@ -1,0 +1,13 @@
+Output: Gerber Files
+Type  : Gerber
+From  : Variant [[No Variations]] of Project [OpenChill.PrjPcb]
+   Generated File[OpenChill_PCB_01.GBL]
+   Generated File[OpenChill_PCB_01.RUL]
+   Generated File[OpenChill_PCB_01.EXTREP]
+   Generated File[OpenChill_PCB_01.REP]
+
+
+Files Generated   : 4
+Documents Printed : 0
+
+Finished Output Generation At 8:33:44 PM On 31/08/2022

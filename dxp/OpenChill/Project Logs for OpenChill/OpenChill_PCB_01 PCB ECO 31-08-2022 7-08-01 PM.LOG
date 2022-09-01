@@ -1,0 +1,6 @@
+Removed Member From Class: ClassName=OpenChill_Main_Board Member=*8
+Added Component: Designator=*(XC4424_BuzzerModule_Footprint)
+Added Pin To Net: NetName=Net*_3 Pin=*-D10
+Added Net: Name=Net*_3
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * XC4424_BuzzerModule
+Added Room: Name=OpenChill_Main_Board

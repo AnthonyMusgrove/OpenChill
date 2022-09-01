@@ -1,0 +1,15 @@
+Removed Pin From Net: NetName=GND Pin=*-GND
+Change Component Comment : Designator=* Old Comment=XC4424_BuzzerModule New Comment=UnoWithWifi
+Added Component: Designator=*(OpenChill_3xThruHole)
+Added Pin To Net: NetName=Net*_1 Pin=*-1
+Added Pin To Net: NetName=+5 Pin=*-2
+Added Pin To Net: NetName=GND Pin=*-3
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * RP8504_1k_POT
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * XC4514_DCVoltageRegulator
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * XC4419_Relay_5V
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * UnoWithWifi
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * XC4424_BuzzerModule
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * XC4520_HumiditySensor
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * PS0524_BulkheadMaleDCPowerConnector
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * RN3440_10k_NTC_Thermistor
+Added Room: Name=OpenChill_Main_Board

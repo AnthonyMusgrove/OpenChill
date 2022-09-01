@@ -1,0 +1,10 @@
+Replace Part * UnoWithWifi in C:\Users\Public\Documents\Altium\Projects\OpenChill\OpenChill_Main_Board.SchDoc with UnoWithWifi from OpenChill_Components_Library.SchLib
+Replace Part * XC4514_DCVoltageRegulator in C:\Users\Public\Documents\Altium\Projects\OpenChill\OpenChill_Main_Board.SchDoc with XC4514_DCVoltageRegulator from OpenChill_Components_Library.SchLib
+Replace Part * PS0524_BulkheadMaleDCPowerConnector in C:\Users\Public\Documents\Altium\Projects\OpenChill\OpenChill_Main_Board.SchDoc with PS0524_BulkheadMaleDCPowerConnector from OpenChill_Components_Library.SchLib
+Replace Part * XC4424_BuzzerModule in C:\Users\Public\Documents\Altium\Projects\OpenChill\OpenChill_Main_Board.SchDoc with XC4424_BuzzerModule from OpenChill_Components_Library.SchLib
+Replace Part * XC4520_HumiditySensor in C:\Users\Public\Documents\Altium\Projects\OpenChill\OpenChill_Main_Board.SchDoc with XC4520_HumiditySensor from OpenChill_Components_Library.SchLib
+Replace Part * RN3440_10k_NTC_Thermistor in C:\Users\Public\Documents\Altium\Projects\OpenChill\OpenChill_Main_Board.SchDoc with RN3440_10k_NTC_Thermistor from OpenChill_Components_Library.SchLib
+Replace Part * HM5172_2WayPCBScrewTerminal in C:\Users\Public\Documents\Altium\Projects\OpenChill\OpenChill_Main_Board.SchDoc with HM5172_2WayPCBScrewTerminal from OpenChill_Components_Library.SchLib
+Replace Part * XC4419_Relay_5V in C:\Users\Public\Documents\Altium\Projects\OpenChill\OpenChill_Main_Board.SchDoc with XC4419_Relay_5V from OpenChill_Components_Library.SchLib
+Replace Part R? Res1 in C:\Users\Public\Documents\Altium\Projects\OpenChill\OpenChill_Main_Board.SchDoc with Res1 from Miscellaneous Devices.IntLib
+Replace Part R? RPot in C:\Users\Public\Documents\Altium\Projects\OpenChill\OpenChill_Main_Board.SchDoc with RPot from Miscellaneous Devices.IntLib

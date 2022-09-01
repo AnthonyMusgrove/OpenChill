@@ -1,0 +1,6 @@
+Added Component: Designator=*2(XC4419_5VRelay_Footprint)
+Added Pin To Net: NetName=Net*1_1 Pin=*2-COM
+Added Pin To Net: NetName=VCC Pin=*2-NC
+Added Pin To Net: NetName=GND Pin=*2-NO
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *2 XC4419_Relay_5V
+Added Room: Name=OpenChill_Main_Board

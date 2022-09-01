@@ -23,6 +23,15 @@
 #define DEGREES_ABOVE_DEWPOINT 1  /* OpenChill will aim to maintain a chiller temperature of x degrees ABOVE dewpoint */
 #define MAX_TEMPERATURE_ALERT 26.5 /* Currently, OpenChill will emit an audible beep when chiller temperature exceeds this value */
 
+
+/*  Instead of a single degree value for target above dewpoint, lets introduce a range.  For a few reasons - to stop the
+ *   need for cutting in and out when the temperature fluctuates even by error, without having to introduce new code to
+ *   detect and ignore (yet).  -anthony@labworx.au
+*/
+
+#define TARGET_TEMPERATURE_MIN_ABOVE_DEWPOINT 1
+#define TARGET_TEMPERATURE_MAX_ABOVE_DEWPOINT 3
+
 /*
  * PIN Configuration
  */
@@ -267,6 +276,66 @@ void setEnvironmentAlert()
 
 void setFridgeStatus()
 {
+/*
+ * #define TARGET_TEMPERATURE_MIN_ABOVE_DEWPOINT 1
+#define TARGET_TEMPERATURE_MAX_ABOVE_DEWPOINT 5
+ */
+
+  /*
+   * Check current temperature is between min and max target, if its between the range, fridge goes off if its on..
+
+    if its between the range and fridge is off, leave it off
+
+    if its below the range, definitely off.
+
+    if its above range, definitely on
+   */
+
+  float min_target_temperature = currentEnvironmentDewPoint + TARGET_TEMPERATURE_MIN_ABOVE_DEWPOINT;  //  eg  dp=11, min above=1, min temp = 12
+  float max_target_temperature = currentEnvironmentDewPoint + TARGET_TEMPERATURE_MAX_ABOVE_DEWPOINT;  //  eg  dp=11, max above=5, max temp = 16
+  
+  // check if current temperature is above min, but below max..
+ if((currentReservoirTemperature >= min_target_temperature) && (currentReservoirTemperature <= max_target_temperature))
+ {
+   //if its in range, fridge can be turned off if its on
+   if(FridgeOn)
+   {
+      Serial.println("Temperature in target range, fridge is on, so switching it off ..");
+      //fridge off
+      digitalWrite(FRIDGE_RELAY_PIN, LOW);
+      FridgeOn = false;
+   }
+   
+   return;
+ }
+ else if(currentReservoirTemperature > max_target_temperature)
+ {
+    Serial.println("Temperature is above maximum target, switching fridge on ..");
+    //fridge on
+    digitalWrite(FRIDGE_RELAY_PIN, HIGH);
+    FridgeOn = true;
+ }
+ else if(currentReservoirTemperature < min_target_temperature)
+ {
+    Serial.println("Temperature is below minimum target, switching fridge off ..");
+    //fridge off
+    digitalWrite(FRIDGE_RELAY_PIN, LOW);
+    FridgeOn = false;
+ }
+ else
+ {
+    Serial.println("Condition met, but unknown yet why.");
+    //do nothing (yet) 
+ }
+ 
+ 
+   
+}
+
+void setFridgeStatus_OLD()
+{
+
+  
   if(currentReservoirTemperature <= (currentEnvironmentDewPoint + DEGREES_ABOVE_DEWPOINT))
   {
     //fridge off.

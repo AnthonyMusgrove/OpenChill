@@ -1,0 +1,27 @@
+Removed Pin From Net: NetName=GND Pin=*-GND
+Change Component Designator: OldDesignator=* NewDesignator=*1
+Change Component Designator: OldDesignator=* NewDesignator=*2
+Change Component Designator: OldDesignator=* NewDesignator=*3
+Change Component Designator: OldDesignator=* NewDesignator=*5
+Change Component Designator: OldDesignator=* NewDesignator=*6
+Change Component Designator: OldDesignator=* NewDesignator=*7
+Change Component Designator: OldDesignator=* NewDesignator=*8
+Change Component Designator: OldDesignator=R? NewDesignator=R1
+Change Component Designator: OldDesignator=R? NewDesignator=R2
+Change Net Name : Old Net Name=Net*_2 New Net Name=Net*5_2
+Change Net Name : Old Net Name=NetR?_1 New Net Name=NetR1_2
+Added Pin To Net: NetName=Net*1_1 Pin=*1-1
+Added Pin To Net: NetName=Net*1_1 Pin=*2-COM
+Added Net: Name=Net*1_1
+Added Net: Name=Net*2_1
+Added Pin To Net: NetName=Net*4_D9 Pin=*7-1
+Added Net: Name=Net*4_D9
+Added Net: Name=Net*4_D10
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *1 HM5172_2WayPCBScrewTerminal
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *3 PS0524_BulkheadMaleDCPowerConnector
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *5 RN3440_10k_NTC_Thermistor
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *6 XC4514_DCVoltageRegulator
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *7 XC4520_HumiditySensor
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *8 XC4424_BuzzerModule
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component R2 Res1
+Added Room: Name=OpenChill_Main_Board

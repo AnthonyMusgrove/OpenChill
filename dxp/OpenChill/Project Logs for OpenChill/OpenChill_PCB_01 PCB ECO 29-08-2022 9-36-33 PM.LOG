@@ -1,0 +1,10 @@
+Added Component: Designator=*(XC4514_VoltReg_Footprint)
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * UnoWithWifi
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * RP8504_1k_POT
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * RN3440_10k_NTC_Thermistor
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * XC4419_Relay_5V
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * XC4424_BuzzerModule
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * XC4514_DCVoltageRegulator
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * PS0524_BulkheadMaleDCPowerConnector
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * XC4520_HumiditySensor
+Added Room: Name=OpenChill_Main_Board

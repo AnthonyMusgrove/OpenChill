@@ -1,0 +1,15 @@
+Added Component: Designator=*(OpenChill_2xThruHole)
+Added Component: Designator=*(XC4419_5VRelay_Footprint)
+Added Pin To Net: NetName=VCC Pin=*-2
+Added Pin To Net: NetName=GND Pin=*-GND
+Added Pin To Net: NetName=GND Pin=*-NO
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * XC4520_HumiditySensor
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * HM5172_2WayPCBScrewTerminal External Fridge Relay Supply
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * XC4514_DCVoltageRegulator
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * XC4419_Relay_5V
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * PS0524_BulkheadMaleDCPowerConnector
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * RN3440_10k_NTC_Thermistor
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * UnoWithWifi
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * XC4424_BuzzerModule
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component R? Res1
+Added Room: Name=OpenChill_Main_Board

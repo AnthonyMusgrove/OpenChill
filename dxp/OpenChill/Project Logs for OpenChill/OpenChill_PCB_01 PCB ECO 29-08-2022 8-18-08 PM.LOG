@@ -1,0 +1,11 @@
+Added Component: Designator=*(OpenChill_3XStdPinThru)
+Added Component: Designator=*(OpenChill_3xThruHole)
+Added Component: Designator=*(OpenChill_2xThruHole)
+Added Component: Designator=*(OpenChill_3xThruHole)
+Added Net: Name=+5
+Added Net: Name=GND
+Added Net: Name=Net*_D8
+Added Net: Name=Net*_D9
+Added Net: Name=Net*_D10
+Added Class: Name=OpenChill_Main_Board
+Added Room: Name=OpenChill_Main_Board

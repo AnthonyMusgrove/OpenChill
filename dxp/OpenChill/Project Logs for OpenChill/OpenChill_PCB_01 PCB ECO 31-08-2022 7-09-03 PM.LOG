@@ -1,0 +1,10 @@
+Change Component Designator: OldDesignator=*3 NewDesignator=*4
+Change Component Designator: OldDesignator=*5 NewDesignator=*7
+Change Component Designator: OldDesignator=*6 NewDesignator=*8
+Change Component Designator: OldDesignator=*7 NewDesignator=*5
+Change Component Designator: OldDesignator=* NewDesignator=*3
+Change Component Designator: OldDesignator=* NewDesignator=*6
+Change Net Name : Old Net Name=Net*7_1 New Net Name=Net*3_D9
+Change Net Name : Old Net Name=Net*_3 New Net Name=Net*3_D10
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *8 XC4514_DCVoltageRegulator
+Added Room: Name=OpenChill_Main_Board

@@ -1,0 +1,5 @@
+Added Pin To Net: NetName=+5 Pin=*2-5V
+Added Pin To Net: NetName=GND Pin=*2-GND
+Added Pin To Net: NetName=Net*2_1 Pin=*2-SIGNAL
+Change Net Name : Old Net Name=Net*2_1 New Net Name=Net*2_SIGNAL
+Added Room: Name=OpenChill_Main_Board

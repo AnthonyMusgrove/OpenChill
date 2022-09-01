@@ -1,0 +1,51 @@
+Added Component: Designator=*1(OpenChill_2xThruHole)
+Added Component: Designator=*2(XC4419_5VRelay_Footprint)
+Added Component: Designator=*3(OpenChill_2xThruHole)
+Added Component: Designator=*5(OpenChill_2xThruHole)
+Added Component: Designator=*6(XC4514_VoltReg_Footprint)
+Added Component: Designator=*7(OpenChill_3xThruHole)
+Added Component: Designator=*8(XC4424_BuzzerModule_Footprint)
+Added Component: Designator=*(ARDUINO_INTERFACE_FOOTPRINT)
+Added Component: Designator=R1(VR5)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Variable Resistor, Thru-Hole; 3 Leads"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "VR5"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Set Position"; Value = "0.5"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Sim Note"; Value = "Enter the Resistance value and the set point into parameter fields."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "1K"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=Net*1_1 Pin=*1-1
+Added Pin To Net: NetName=VCC Pin=*1-2
+Added Pin To Net: NetName=Net*1_1 Pin=*2-COM
+Added Pin To Net: NetName=GND Pin=*2-NO
+Added Pin To Net: NetName=VCC Pin=*3-1
+Added Pin To Net: NetName=GND Pin=*3-2
+Added Pin To Net: NetName=+5 Pin=*5-1
+Added Pin To Net: NetName=A3 Pin=*5-2
+Added Pin To Net: NetName=+5 Pin=*6-5V+
+Added Pin To Net: NetName=GND Pin=*6-GND
+Added Pin To Net: NetName=GND Pin=*6-GND
+Added Pin To Net: NetName=VCC Pin=*6-VCC
+Added Pin To Net: NetName=Net*7_1 Pin=*7-1
+Added Pin To Net: NetName=+5 Pin=*7-2
+Added Pin To Net: NetName=GND Pin=*7-3
+Added Pin To Net: NetName=+5 Pin=*-+5
+Added Pin To Net: NetName=A3 Pin=*-A3
+Added Pin To Net: NetName=Net*2_1 Pin=*-D8
+Added Pin To Net: NetName=Net*7_1 Pin=*-D9
+Added Pin To Net: NetName=Net*8_3 Pin=*-D10
+Added Pin To Net: NetName=GND Pin=*-GND
+Added Pin To Net: NetName=GND Pin=R1-2
+Added Pin To Net: NetName=A3 Pin=R1-3
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *1 HM5172_2WayPCBScrewTerminal
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *2 XC4419_Relay_5V
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *3 PS0524_BulkheadMaleDCPowerConnector
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *5 RN3440_10k_NTC_Thermistor
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *6 XC4514_DCVoltageRegulator
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *7 XC4520_HumiditySensor
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *8 XC4424_BuzzerModule
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * UnoWithWifi
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component R1 RP7504_1k_POT
+Added Room: Name=OpenChill_Main_Board

@@ -1,0 +1,27 @@
+*************************************************************
+FileName = OpenChill_PCB_01.GBR
+AutoAperture = True
+*************************************************************
+Generating : Bottom Layer
+      File : OpenChill_PCB_01.GBL
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Mechanical 1
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+    D17
+    D18
+    D19
+*************************************************************
+

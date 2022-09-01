@@ -1,0 +1,12 @@
+Removed Pin From Net: NetName=+5 Pin=*8-5V+
+Removed Pin From Net: NetName=GND Pin=*8-GND
+Removed Pin From Net: NetName=GND Pin=*8-GND
+Removed Pin From Net: NetName=VCC Pin=*8-VCC
+Removed Member From Class: ClassName=OpenChill_Main_Board Member=*8
+Added Component: Designator=*(XC4514_VoltReg_Footprint)
+Added Pin To Net: NetName=+5 Pin=*-5V+
+Added Pin To Net: NetName=GND Pin=*-GND
+Added Pin To Net: NetName=GND Pin=*-GND
+Added Pin To Net: NetName=VCC Pin=*-VCC
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * XC4514_DCVoltageRegulator
+Added Room: Name=OpenChill_Main_Board

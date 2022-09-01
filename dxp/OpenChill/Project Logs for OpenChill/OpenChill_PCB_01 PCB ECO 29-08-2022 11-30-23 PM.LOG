@@ -1,0 +1,16 @@
+Removed Pin From Net: NetName=A3 Pin=*4-A3
+Removed Pin From Net: NetName=Net*2_1 Pin=*4-D8
+Removed Pin From Net: NetName=GND Pin=*4-GND
+Removed Member From Class: ClassName=OpenChill_Main_Board Member=*4
+Added Component: Designator=*(ARDUINO_INTERFACE_FOOTPRINT)
+Added Pin To Net: NetName=+5 Pin=*-+5
+Added Pin To Net: NetName=A3 Pin=*-A3
+Added Pin To Net: NetName=Net*2_1 Pin=*-D8
+Added Pin To Net: NetName=GND Pin=*-GND
+Added Pin To Net: NetName=Net*7_1 Pin=*-D9
+Added Pin To Net: NetName=Net*7_1 Pin=*7-1
+Added Net: Name=Net*7_1
+Added Pin To Net: NetName=Net*8_3 Pin=*-D10
+Added Net: Name=Net*8_3
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * UnoWithWifi
+Added Room: Name=OpenChill_Main_Board

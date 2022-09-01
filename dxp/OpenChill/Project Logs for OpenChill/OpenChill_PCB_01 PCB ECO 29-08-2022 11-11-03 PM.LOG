@@ -1,0 +1,11 @@
+Added Component: Designator=*(ARDUINO_INTERFACE_FOOTPRINT)
+Added Pin To Net: NetName=A3 Pin=*-A3
+Added Pin To Net: NetName=Net*2_1 Pin=*-D8
+Added Pin To Net: NetName=Net*7_1 Pin=*-D9
+Added Pin To Net: NetName=Net*7_1 Pin=*7-1
+Added Net: Name=Net*7_1
+Added Pin To Net: NetName=Net*8_3 Pin=*-D10
+Added Net: Name=Net*8_3
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *2 XC4419_Relay_5V
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * UnoWithWifi
+Added Room: Name=OpenChill_Main_Board

@@ -1,0 +1,25 @@
+Change Component Comment : Designator=* Old Comment=UnoWithWifi New Comment=XC4424_BuzzerModule
+Added Component: Designator=R?(AXIAL-0.3)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Axial Device, Thru-Hole; 2 Leads; 0.3 in Pin Spacing"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "AXIAL-0.3"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10K"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=+5 Pin=*-1
+Added Pin To Net: NetName=GND Pin=R?-2
+Added Net: Name=A3
+Added Pin To Net: NetName=Net*_2 Pin=*-2
+Added Pin To Net: NetName=Net*_2 Pin=R?-1
+Added Net: Name=Net*_2
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * XC4520_HumiditySensor
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * XC4514_DCVoltageRegulator
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * RP8504_1k_POT
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * RN3440_10k_NTC_Thermistor
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * XC4424_BuzzerModule
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * PS0524_BulkheadMaleDCPowerConnector
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * XC4419_Relay_5V
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component * UnoWithWifi
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component R? Res1
+Added Room: Name=OpenChill_Main_Board
