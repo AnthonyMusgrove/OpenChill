@@ -1,0 +1,31 @@
+Removed Pin From Net: NetName=+5 Pin=ARDUINO INTERFACE-+5
+Removed Pin From Net: NetName=A3 Pin=ARDUINO INTERFACE-A3
+Removed Pin From Net: NetName=Net*2_SIGNAL Pin=ARDUINO INTERFACE-D8
+Removed Pin From Net: NetName=Net*3_D9 Pin=ARDUINO INTERFACE-D9
+Removed Pin From Net: NetName=Net*3_D10 Pin=ARDUINO INTERFACE-D10
+Removed Pin From Net: NetName=GND Pin=ARDUINO INTERFACE-GND
+Removed Member From Class: ClassName=OpenChill_Main_Board Member=ARDUINO INTERFACE
+Change Component Designator: OldDesignator=* NewDesignator=*10
+Change Component Designator: OldDesignator=RN3440 NewDesignator=*9
+Change Component Designator: OldDesignator=RP8510 NewDesignator=R1
+Change Component Designator: OldDesignator=SY4040 NewDesignator=*1
+Change Component Designator: OldDesignator=XC4419 NewDesignator=*2
+Change Component Designator: OldDesignator=XC4424 NewDesignator=*8
+Change Component Designator: OldDesignator=XC4514 NewDesignator=*6
+Change Component Designator: OldDesignator=XC4520 NewDesignator=*7
+Added Component: Designator=*3(ARDUINO_INTERFACE_FOOTPRINT)
+Added Component: Designator=*4(OpenChill_2xThruHole)
+Added Component: Designator=*5(OpenChill_2xThruHole)
+Added Pin To Net: NetName=+5 Pin=*3-+5
+Added Pin To Net: NetName=A3 Pin=*3-A3
+Added Pin To Net: NetName=Net*2_SIGNAL Pin=*3-D8
+Added Pin To Net: NetName=Net*3_D9 Pin=*3-D9
+Added Pin To Net: NetName=Net*3_D10 Pin=*3-D10
+Added Pin To Net: NetName=GND Pin=*3-GND
+Added Pin To Net: NetName=GND Pin=*4-2
+Added Pin To Net: NetName=GND Pin=*5-2
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *3 UnoWithWifi
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *4 HM5172_2WayPCBScrewTerminal
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *5 HM5172_2WayPCBScrewTerminal
+Added Member To Class: ClassName=OpenChill_Main_Board Member=Component *10 XC4514_DCVoltageRegulator
+Added Room: Name=OpenChill_Main_Board

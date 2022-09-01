@@ -1,0 +1,7 @@
+Added Pin To Net: NetName=D6 Pin=*3-D6
+Added Pin To Net: NetName=D6 Pin=*4-1
+Added Net: Name=D6
+Added Pin To Net: NetName=D7 Pin=*3-D7
+Added Pin To Net: NetName=D7 Pin=*5-1
+Added Net: Name=D7
+Added Room: Name=OpenChill_Main_Board
