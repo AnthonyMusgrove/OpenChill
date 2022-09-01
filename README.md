@@ -13,6 +13,8 @@ OpenChill is an open source laser chiller firmware and hardware project using re
 <br/>
 <p>Images, instructions, firmware, etc all in progress of ALPHA, once ready for initial commit we can begin group collaboration.</p>
 
+![OpenChill](BoardLayout_v1_0_0.png)
+
 ## Parts List
 
 Please see the BOM and Schematics PDFs -- parts won't be listed here anymore, only in the files.  All parts available from Jaycar Australia
