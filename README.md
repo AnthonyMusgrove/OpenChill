@@ -15,7 +15,7 @@ You can also now install OpenChill on an MKS Base v1.4 3D Printer Control Board
 <br/>
 <p>Images, instructions, firmware, etc all in progress of ALPHA, once ready for initial commit we can begin group collaboration.</p>
 
-![OpenChill](BoardLayout_v1_0_0.png)
+![OpenChill](v2_images/oc_v2_img01.jpg)
 
 ## Parts List
 
