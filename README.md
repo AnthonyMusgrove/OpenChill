@@ -30,3 +30,5 @@ Please see the BOM and Schematics PDFs -- parts won't be listed here anymore, on
 * OpenChill ESP Firmware
 * OpenChill Windows Monitoring Tool
 * OpenChill Enclosure Lasercut Files 
+
+![EnclosureRender](v2_lasercut_enclosure/enclosure_render_01.jpg)
