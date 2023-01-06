@@ -1,6 +1,8 @@
 # OpenChill
 OpenChill is an open source laser chiller firmware and hardware project using readily available parts from JayCar (Australia)
 
+You can also now install OpenChill on an MKS Base v1.4 3D Printer Control Board
+
 ![OpenChill](OpenChill.png)
 
 ## Why OpenChill?
@@ -19,7 +21,6 @@ OpenChill is an open source laser chiller firmware and hardware project using re
 
 Please see the BOM and Schematics PDFs -- parts won't be listed here anymore, only in the files.  All parts available from Jaycar Australia
 
-
 ## Non standard bits and pieces
 
 * A water cooler with a working condensor/fridge mechanism.  We will be removing the thermostat that it has and installing OpenChill. 
@@ -28,3 +29,4 @@ Please see the BOM and Schematics PDFs -- parts won't be listed here anymore, on
 * OpenChill Uno Firmware
 * OpenChill ESP Firmware
 * OpenChill Windows Monitoring Tool
+* OpenChill Enclosure Lasercut Files 
