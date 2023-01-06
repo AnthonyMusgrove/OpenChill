@@ -1,9 +1,8 @@
 # OpenChill
-OpenChill is an open source laser chiller firmware and hardware project using readily available parts from JayCar (Australia)
-
-You can also now install OpenChill on an MKS Base v1.4 3D Printer Control Board
-
 ![OpenChill](OpenChill.png)
+
+OpenChill is an open source laser chiller firmware and hardware project using readily available parts from JayCar (Australia)
+NOTE: You can also now install OpenChill on an MKS Base v1.4 3D Printer Control Board
 
 ## Why OpenChill?
 <p>A Co2 laser tube requires water cooling to maintain power, longevity and safety of the equipment.  The issue is, if the water can't be kept cool enough, the laser starts to lose power and over time, degrades and becomes unusable quicker.</p>  
