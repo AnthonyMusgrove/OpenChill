@@ -114,12 +114,17 @@ float currentEnvironmentHumidity;
 float currentEnvironmentDewPoint;
 
 /* variables to store Chiller Reservoir Temperature & Analog Read value */
-float currentReservoirTemperature;
+float currentReservoirTemperature = -9999; /* set to really icy cold low, so we can ensure not to act until atleast first sample is taken */
 int currentReservoirVoltage;
+
+#define WATER_TEMP_TOTAL_SAMPLES 50
+
+/* variables to control rolling log of measurements for averaging */
+float reservoir_temperature_log[WATER_TEMP_TOTAL_SAMPLES]; 
+int cur_log_value = -1;
 
 /* Keep track of Fridge circuit Status */
 bool FridgeOn = false;
-
 
 
 /* Setup Control Board */
@@ -182,6 +187,15 @@ void setFridgeStatus()
     if its above range, definitely on
    */
 
+   if(currentReservoirTemperature < -9998)
+   {
+    #ifdef DEBUG
+        Serial.println("Waiting for first water temperature sample before calculating fridge conditions ..");
+    #endif
+
+     return;
+   }
+
   float min_target_temperature = currentEnvironmentDewPoint + TARGET_TEMPERATURE_MIN_ABOVE_DEWPOINT;  //  eg  dp=11, min above=1, min temp = 12
   float max_target_temperature = currentEnvironmentDewPoint + TARGET_TEMPERATURE_MAX_ABOVE_DEWPOINT;  //  eg  dp=11, max above=5, max temp = 16
   
@@ -237,12 +251,18 @@ void setFridgeStatus()
 void readReservoirProbeTemperature()
 {
   currentReservoirVoltage = analogRead(RESERVOIR_TEMP_PROBE_PIN);
+
+/*
+ variables to control rolling log of measurements for averaging 
+float reservoir_temperature_log[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; 
+int cur_log_value = -1;
+*/
+  cur_log_value++;
   
   #ifdef MKS_BASE_1_4
-	  currentReservoirTemperature = map(currentReservoirVoltage, 1023, 0, -50, 50);
 
-	  currentReservoirTemperature = currentReservoirTemperature - TEMP_CALIB_DIFF;
-	  return;
+    reservoir_temperature_log[cur_log_value] = map(currentReservoirVoltage, 1023, 0, -50, 50) - TEMP_CALIB_DIFF;
+
   #else
 	  
 	  float R1 = 10000;
@@ -256,9 +276,24 @@ void readReservoirProbeTemperature()
 	  T = (T * 9.0)/ 5.0 + 32.0; 
 
 	  /* set Current Reservoir Temperature to current temperature in Celsius */
-	  currentReservoirTemperature = T;
+	  //currentReservoirTemperature = T;
+
+    reservoir_temperature_log[cur_log_value] = T;
 
   #endif
+
+  float total_for_avg = 0;
+
+  if(cur_log_value == WATER_TEMP_TOTAL_SAMPLES)
+  {
+    for(int x=0; x< WATER_TEMP_TOTAL_SAMPLES; x++)
+    {
+        total_for_avg += reservoir_temperature_log[x];
+    }
+
+    currentReservoirTemperature = total_for_avg / WATER_TEMP_TOTAL_SAMPLES;
+    cur_log_value = -1;
+  }
 
 }
 
@@ -273,7 +308,9 @@ void readEnvironment()
 
 void debug_Out(bool fridge_test_mode)
 {
-  Serial.print("Temp: ");
+  Serial.print("Total Samples: ");
+  Serial.print(cur_log_value);
+  Serial.print(" | Temp: ");
   Serial.print(currentEnvironmentTemperature);
   Serial.print(" | Humid: ");
   Serial.print(currentEnvironmentHumidity);
@@ -331,16 +368,6 @@ void fridge_relay_debug()
   delay(1500);
 }
 
-int tmp_counter = 0;
-
-void tmp_increment_counter()
-{
-  tmp_counter++;
-  Serial.print("counter=");
-  Serial.print(tmp_counter);
-  Serial.println();
-}
-
 void setup_lcd()
 {
   lcd.clear();
@@ -352,7 +379,7 @@ void setup_lcd()
 
   //update environment temperature
   lcd.setCursor(5,1);
-  lcd.print("0");
+  lcd.print("??");
   lcd.print((char)223);
   lcd.print("C");
 
@@ -361,14 +388,14 @@ void setup_lcd()
 
   //update humidity
   lcd.setCursor(15, 1);
-  lcd.print("0%");
+  lcd.print("??%");
   
   lcd.setCursor(0,2);
   lcd.print("DPt:");
 
   //update dewpoint
   lcd.setCursor(5,2);
-  lcd.print("0");
+  lcd.print("??");
   lcd.print((char)223);
   lcd.print("C");
 
@@ -378,7 +405,7 @@ void setup_lcd()
 
   //update water/reservior temperature
   lcd.setCursor(15,2);
-  lcd.print("0");
+  lcd.print("??");
   lcd.print((char)223);
   lcd.print("C");
 
@@ -387,7 +414,7 @@ void setup_lcd()
 
   //update fridge/chiller status
   lcd.setCursor(9,3);
-  lcd.print("0");
+  lcd.print("??");
 
 
 }
@@ -397,26 +424,64 @@ void update_lcd()
 
   //update environment temperature
   lcd.setCursor(5,1);
-  lcd.print(currentEnvironmentTemperature,0);
+
+  if(!isnan(currentEnvironmentTemperature))
+  {
+    lcd.print(currentEnvironmentTemperature,0);
+  }
+  else
+  {
+    lcd.print("!?");
+  }
+
   lcd.print((char)223);
   lcd.print("C");
 
   //update humidity
   lcd.setCursor(15, 1);
-  lcd.print(currentEnvironmentHumidity,0);
+
+  if(!isnan(currentEnvironmentHumidity))
+  {
+    lcd.print(currentEnvironmentHumidity,0);
+  }
+  else
+  {
+    lcd.print("!?");
+  }
+
   lcd.print("%");
   
   //update dewpoint
   lcd.setCursor(5,2);
-  lcd.print(currentEnvironmentDewPoint,0);
+
+  if(!isnan(currentEnvironmentDewPoint))
+  {
+   lcd.print(currentEnvironmentDewPoint,0);
+  }
+  else
+  {
+    lcd.print("!?");
+  }
+  
   lcd.print((char)223);
   lcd.print("C");
 
   //update water/reservior temperature
   lcd.setCursor(15,2);
-  lcd.print(currentReservoirTemperature,0);
-  lcd.print((char)223);
-  lcd.print("C");
+
+  if(currentReservoirTemperature > -9999)
+  {
+    lcd.print(currentReservoirTemperature,0);
+    lcd.print((char)223);
+    lcd.print("C");
+  }
+  else
+  {
+    lcd.print("**");
+    lcd.print((char)223);
+    lcd.print("C");
+     
+  }
 
   lcd.setCursor(9,3);
   lcd.print(FridgeOn);
