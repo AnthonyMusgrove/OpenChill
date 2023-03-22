@@ -2,7 +2,14 @@
 ![OpenChill](OpenChill.png)
 
 OpenChill is an open source laser chiller firmware and hardware project using readily available parts from JayCar (Australia)
-NOTE: You can also now install OpenChill on an MKS Base v1.4 3D Printer Control Board
+NOTE: You can also now install OpenChill on an MKS Base v1.4 3D Printer Control Board.  
+
+Updated March 22nd 2023, OpenChill can be installed directly on an ESP8266, wiring diagram & instructions link will be available shortly.  The gist of the implementation is to #define OPENCHILL_ESP8266, set wifi SSID and wifi PASSWORD on lines 183 and 184, and if you want the portal to appear on a static local IP address, you need to #define IS_STATIC_IP then set IP address in segments IP_0,1,2,3, DNS_0,1,2,3, GW_0,1,2,3, and SUBN_0,1,2,3 (lines 191 to 212). You can also change the portal from the default web port 80 by changing #define WEB_PORT 80 (on line 214).
+
+The portal address is simply at http://portal_ip_address<:port (if not 80)> - this will open the basic portal with some simple ajax framework to retrieve the live statistics.   If you just want the JSON statistics feed for your own integrations (into your laser software, etc) simply open http://portal_ip_address<:port (if not 80)>/stats - you'll receive a response similar to:
+
+<code>{"environment":{"temperature": "26.5","humidity": "88","dewpoint": "24.3"},"reservior_temperature":"25.5","fridge_status":"off", "override_status":"off"}</code>
+
 
 ## Why OpenChill?
 <p>A Co2 laser tube requires water cooling to maintain power, longevity and safety of the equipment.  The issue is, if the water can't be kept cool enough, the laser starts to lose power and over time, degrades and becomes unusable quicker.</p>  
