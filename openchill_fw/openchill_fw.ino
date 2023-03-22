@@ -26,15 +26,62 @@
                              with the board details including any exact model numbers, brands etc, and a photo or image of the board in question.
    */
 
-#include <LibPrintf.h>
+//#include <LibPrintf.h>
 #include <LiquidCrystal.h>
 
-#define MKS_BASE_1_4
 
+// #define DEBUG
+// OPTIONS:   DEBUG, DEBUGSERIAL, FRIDGECIRCUITDEBUG, SERIALMODE, PRODUCTION (production doesn't do anything yet)
+//            ADDITIONAL OPTION FOR ESP8266:  WIFICONSOLE  - with this enabled with OPENCHILL_ESP8266 as the 
+//                                                         main board, OpenChill will attempt to connect to the WIFI settings
+//                                                         you've specified and publish a basic (for now) outputs page.
+#define WIFICONSOLE
+
+
+#define OPENCHILL_ESP8266
+
+
+/* OpenChill ESP8266 CPU MAP  (based on WEMOS D1 MINI, ref https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/) */
+#ifdef OPENCHILL_ESP8266 
+
+#include <ESP8266WiFi.h>
+#include <WiFiClient.h>
+#include <ESP8266WebServer.h>
+#include <ESP8266mDNS.h>
+
+/* eek, not enough pins on an 8266 to do serial LCD, besides we have wifi on an 8266! */
+#define HAS_WIFI
+
+#define LCD_RS -1
+#define LCD_EN -1
+#define LCD_D4 -1
+#define LCD_D5 -1
+#define LCD_D6 -1
+#define LCD_D7 -1
+
+#define SAFETY_CUTOFF_SIGNAL_PIN D6 /* OUTPUT Signal wire for OpenChill to direct laser to cease operating  */
+#define LASER_IN_USE_PIN D7 /* INPUT Signal wire from laser to advise OpenChill that laser is currently in use */
+
+
+// Available pins:  D0, D1, D2
+// Used pins:       D3, D4, D5, D6, D7, D8, A0
+
+#define FRIDGE_RELAY_PIN D4 /* Arduino Digital Pin for the Fridge Relay Circuit */
+#define DHT11_PIN D8   /* Arduino Digital Pin for the Signal Wire of the DHT11 Temperature & Humidity Sensor */
+#define BUZZER_PIN D5 /* Arduino Digital PWM Piezzo/Buzzer Pin */
+#define RESERVOIR_TEMP_PROBE_PIN A0  /* Arduino Analog Pin for the Chiller Temperature Probe Circuit Reading, only ADC on ESP8266 */
+
+#define OVERRIDE_PIN D3
+
+
+#endif
 
 
 /*  OpenChill Hardware V1 CPU MAP */
 #ifdef OPENCHILL_HARDWARE_V1
+
+#define HAS_LCD
+
 #define LCD_RS 12
 #define LCD_EN  11
 #define LCD_D4 5
@@ -49,10 +96,39 @@
 #define BUZZER_PIN 10 /* Arduino Digital PWM Piezzo/Buzzer Pin */
 #define RESERVOIR_TEMP_PROBE_PIN A3  /* Arduino Analog Pin for the Chiller Temperature Probe Circuit Reading */
 
+#define OVERRIDE_PIN -1 /* not yet defined for this hardware */
+
 #endif
 
-/*  MKS Base v1.4 CPU MAP */
-#ifdef MKS_BASE_1_4
+/* GT2560_REV_A Geetech GT2560 Rev A Plus CPU MAP - LCD not working yet, I need to look into it, pretty sure its I2C */
+#ifdef GT2560_REV_A_PLUS
+
+// should be the same as the ramps boards.. 
+#define HAS_LCD
+
+#define LCD_RS 16
+#define LCD_EN 17
+#define LCD_D4 23
+#define LCD_D5 25
+#define LCD_D6 27
+#define LCD_D7 29
+
+#define SAFETY_CUTOFF_SIGNAL_PIN 6 /* OUTPUT Signal wire for OpenChill to direct laser to cease operating  */
+#define LASER_IN_USE_PIN 7 /* INPUT Signal wire from laser to advise OpenChill that laser is currently in use */
+#define FRIDGE_RELAY_PIN 4 /* Arduino Digital Pin for the Fridge Relay Circuit | Hot bed */
+#define DHT11_PIN 22   /* Arduino Digital Pin for the Signal Wire of the DHT11 Temperature & Humidity Sensor | GT2650 Rev A - Z MIN */
+#define BUZZER_PIN 18 /* Arduino Digital PWM Piezzo/Buzzer Pin */
+#define RESERVOIR_TEMP_PROBE_PIN 8  /* Arduino Analog Pin for the Chiller Temperature Probe Circuit Reading  | GT2650 Rev A - Temperature Probe 0*/
+
+#define OVERRIDE_PIN 3 /* X MIN */
+#endif
+
+
+/*  MKS Base v1/1.2 < 1.4 CPU MAP */
+#ifdef MKS_BASE_1_0
+
+#define HAS_LCD
+
 #define LCD_RS 16
 #define LCD_EN  17
 #define LCD_D4 23
@@ -67,22 +143,87 @@
 #define BUZZER_PIN 37 /* Arduino Digital PWM Piezzo/Buzzer Pin */
 #define RESERVOIR_TEMP_PROBE_PIN A15  /* Arduino Analog Pin for the Chiller Temperature Probe Circuit Reading */
 
+#define OVERRIDE_PIN 3 /* X MIN */
+
 #endif
 
+
+
+/*  MKS Base v1.4 CPU MAP */
+#ifdef MKS_BASE_1_4
+
+#define HAS_LCD
+
+#define LCD_RS 16
+#define LCD_EN  17
+#define LCD_D4 23
+#define LCD_D5 25
+#define LCD_D6 27
+#define LCD_D7 29
+
+#define SAFETY_CUTOFF_SIGNAL_PIN 6 /* OUTPUT Signal wire for OpenChill to direct laser to cease operating  */
+#define LASER_IN_USE_PIN 7 /* INPUT Signal wire from laser to advise OpenChill that laser is currently in use */
+#define FRIDGE_RELAY_PIN 8 /* Arduino Digital Pin for the Fridge Relay Circuit */
+#define DHT11_PIN 18   /* Arduino Digital Pin for the Signal Wire of the DHT11 Temperature & Humidity Sensor */
+#define BUZZER_PIN 37 /* Arduino Digital PWM Piezzo/Buzzer Pin */
+#define RESERVOIR_TEMP_PROBE_PIN A15  /* Arduino Analog Pin for the Chiller Temperature Probe Circuit Reading */
+
+#define OVERRIDE_PIN 3 /* X MIN */
+
+#endif
+
+
+
+#ifdef HAS_LCD
 LiquidCrystal lcd(LCD_RS, LCD_EN, LCD_D4, LCD_D5, LCD_D6, LCD_D7);
+#endif 
 
-// #define DEBUG
-// OPTIONS:   DEBUG, DEBUGSERIAL, FRIDGECIRCUITDEBUG, SERIALMODE, PRODUCTION (production doesn't do anything yet)
-#define DEBUG
+#ifdef HAS_WIFI
 
- 
+#define WIFI_SSID     "YourWIFISSIDHere"
+#define WIFI_PASSWD   "YourWIFIPasswordHere"
+
+#define IS_STATIC_IP
+
+/* the following only takes affect if IS_STATIC_IP is defined above */
+
+/* Portal IP Address (Example: 192.168.1.75) */
+#define IP_0  192
+#define IP_1  168
+#define IP_2  1
+#define IP_3  85
+
+/* DNS IP Address (Example: 192.168.1.1) */
+#define DNS_0 192
+#define DNS_1 168
+#define DNS_2 1
+#define DNS_3 1
+
+/* Gateway/Router Address (Example: 192.168.1.1) */
+#define GW_0 192
+#define GW_1 168
+#define GW_2 1
+#define GW_3 1
+
+/* Subnet Mask (Example: 255.255.255.0) */
+#define SUBN_0 255
+#define SUBN_1 255
+#define SUBN_2 255
+#define SUBN_3 0
+
+#define WEB_PORT      80
+  
+ESP8266WebServer oc_portal(WEB_PORT);
+
+#endif
+
  /* This value was used arbitrarily as my temperature probe on the MKS 1.4 board was always 8 degrees celsius higher than it should be.   
   * 
   * Calibration of the temperature probe using the MKS 1.4 board will be trial and error until I get some type of software calibration
   * working properly.  If your water temperature probe isn't accurate ( DO NOT SOLELY RELY ON THE MKS 4 TEMPERATURE PROBE WITHOUT CALIBRATING ),
   * submit a ticket so I can get some feedback on the best way to move forward with calibration.
  */
-#define TEMP_CALIB_DIFF 8
+#define TEMP_CALIB_DIFF 7
 
 #define DEGREES_ABOVE_DEWPOINT 1  /* OpenChill will aim to maintain a chiller temperature of x degrees ABOVE dewpoint */
 #define MAX_TEMPERATURE_ALERT 26.5 /* Currently, OpenChill will emit an audible beep when chiller temperature exceeds this value */
@@ -94,15 +235,10 @@ LiquidCrystal lcd(LCD_RS, LCD_EN, LCD_D4, LCD_D5, LCD_D6, LCD_D7);
 */
 
 #define TARGET_TEMPERATURE_MIN_ABOVE_DEWPOINT 1
-#define TARGET_TEMPERATURE_MAX_ABOVE_DEWPOINT 3
+#define TARGET_TEMPERATURE_MAX_ABOVE_DEWPOINT 1
 
-
-
-//#define DHTPIN 2
 
 #define DHTTYPE DHT11   // DHT 11
-//#define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
-//#define DHTTYPE DHT21   // DHT 21 (AM2301)
 
 #include "DHT.h"
 DHT dht(DHT11_PIN, DHTTYPE);
@@ -126,29 +262,196 @@ int cur_log_value = -1;
 /* Keep track of Fridge circuit Status */
 bool FridgeOn = false;
 
+bool OverRide = false;
 
 /* Setup Control Board */
 void setup() {
   Serial.begin(115200);  /* Baud Rate MUST match Baud Rate of onboard ESP chip, tip:  Leave both set to 115200 */
   pinMode(BUZZER_PIN, OUTPUT); /* Define Buzzer Pin as an output */
   pinMode(FRIDGE_RELAY_PIN, OUTPUT); /* Define Fridge Relay Pin as an output */
+
+  pinMode(OVERRIDE_PIN, INPUT_PULLUP);
+
+
   digitalWrite(FRIDGE_RELAY_PIN, LOW); /* Make sure initially we have the Fridge relay off */
   FridgeOn = false; /* Keep track of fridge circuit status, we've switched it off */
 
   pinMode(SAFETY_CUTOFF_SIGNAL_PIN, OUTPUT); /* OUTPUT Signal wire for OpenChill to direct laser to cease operating  */
   pinMode(LASER_IN_USE_PIN, INPUT); /* INPUT Signal wire from laser to advise OpenChill that laser is currently in use */
 
-  lcd.begin(20, 4);
-//  lcd.print("OpenChill.");
-  dht.begin();
+  #ifdef HAS_LCD
+    lcd.begin(20, 4);
+    setup_lcd();
+  #endif 
 
-  setup_lcd();
+  #ifdef HAS_WIFI
+    setupWifi();
+  #endif
+
+  dht.begin();
 
 }
 
- 
 
-void setEnvironmentAlert()
+void setupWifi()
+{
+  #ifdef HAS_WIFI
+
+  Serial.println("Setting up WIFI (ESP8266) ...");
+  Serial.print("Connecting to SSID ");
+  Serial.print(WIFI_SSID);
+
+  #ifdef IS_STATIC_IP
+    IPAddress portal_ip_addr(IP_0, IP_1, IP_2, IP_3);
+    IPAddress dns_addr(DNS_0, DNS_1, DNS_2, DNS_3);
+    IPAddress gateway_addr(GW_0, GW_1, GW_2, GW_3);
+    IPAddress subnet_addr(SUBN_0, SUBN_1, SUBN_2, SUBN_3);
+
+    WiFi.config(portal_ip_addr, gateway_addr, subnet_addr, dns_addr);
+  #endif
+
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWD);
+
+  while(WiFi.status() != WL_CONNECTED) {
+      delay(500);
+      Serial.print(".");
+  }
+
+  Serial.println();
+  Serial.print("Connected to WIFI, IP Address = ");
+  Serial.println(WiFi.localIP());
+
+  setupWebPortal();
+
+  #endif
+}
+
+#ifdef HAS_WIFI
+void showSimpleWebPortal()
+{
+  String portal_Html = "<!DOCTYPE html><html><head>";
+  portal_Html += "<title>OpenChill Simple Web Portal</title>"
+   "</head><body style='font-family: helvetica, sans-serif;'>"
+   " <script type='text/javascript'>"
+   " function query_server_dashboard_data() {"
+   "     var xmlhttp = new XMLHttpRequest();"
+    
+    "    xmlhttp.onreadystatechange = function() {"
+    "        if (xmlhttp.readyState == XMLHttpRequest.DONE) {"
+    "           if (xmlhttp.status == 200) {"
+    "               var dashboard_data_arr = JSON.parse(xmlhttp.responseText); "
+    "               var denvtemp = document.getElementById('environment.temperature').innerText = dashboard_data_arr.environment.temperature + '°C'; "
+    "               var denvhumidity = document.getElementById('environment.humidity').innerText = dashboard_data_arr.environment.humidity + '%'; "
+    "               var denvdewpoint = document.getElementById('environment.dewpoint').innerText = dashboard_data_arr.environment.dewpoint + '°C'; "
+    "               var dwatertemp = document.getElementById('water.temperature').innerText = dashboard_data_arr.reservior_temperature + '°C'; "
+    "               var dfridgestatus = document.getElementById('fridge.status').innerText = dashboard_data_arr.fridge_status; "
+    "               var doverridestatus = document.getElementById('override.status').innerText = dashboard_data_arr.override_status; "
+    "           }"
+    "           else if (xmlhttp.status == 400) {"
+    "             /* alert('There was an error 400'); */" 
+    "           }"
+    "           else {"
+    "               /* alert('something else other than 200 was returned'); */" 
+    "           }"
+    "        }"
+    "    };"
+    
+    "    xmlhttp.open('GET', 'stats', true);"
+    "    xmlhttp.send();"
+    " }"
+
+    " setInterval(get_dashboard_data, 1000);"
+     
+     "function get_dashboard_data() { "
+      "query_server_dashboard_data();"    
+     "}"
+
+    "</script>"
+
+
+ "<h2>OpenChill Simple Web Portal</h2>"
+
+ "<table width='100%'>"
+
+ "<tr><td colspan=2 style='background-color:navy; color: white;'><strong>Environment</strong></td></tr>"
+  "<tr><td style='width:10%;'>Temperature</td><td id='environment.temperature'>" + String(currentEnvironmentTemperature) +  "</td></tr>"
+  "<tr><td style='width:10%;'>Humidity</td><td id='environment.humidity'>" + String(currentEnvironmentHumidity) + "</td></tr>"
+  "<tr><td style='width:10%;'>DewPoint</td><td id='environment.dewpoint'>" + String(currentEnvironmentDewPoint) + "</td></tr>"
+
+  "<tr><td colspan=2 style='background-color:navy; color: white;'><strong>Reservoir</strong></td></tr>"
+  "<tr><td style='width:10%;'>Coolant Temp</td><td id='water.temperature'>" + String(currentReservoirTemperature) + "</td></tr>"
+
+  "<tr><td colspan=2 style='background-color:navy; color: white;'><strong>Chiller/Compressor/Fridge</strong></td></tr>"
+  "<tr><td style='width:10%;'>Status</td><td id='fridge.status'>" + (FridgeOn ? ("On") : ("Off")) + "</td></tr>"
+
+  "<tr><td colspan=2 style='background-color:navy; color: white;'><strong>Override Manual Mode</strong></td></tr>"
+  "<tr><td style='width:10%;'>Status</td><td id='override.status'>" + (OverRide ? ("On") : ("Off")) + "</td></tr>"
+
+  "<table></body></html>";
+
+  oc_portal.send(200, "text/html", portal_Html);
+
+}
+
+void sendStatsData()
+{
+  oc_portal.sendHeader("Access-Control-Allow-Origin", "*");
+
+  String json_Packet = "{"
+
+  "\"environment\":"
+
+  "{"
+
+  "\"temperature\": \"" + String(currentEnvironmentTemperature) + "\","
+  "\"humidity\": \"" + String(currentEnvironmentHumidity) + "\","
+  "\"dewpoint\": \"" + String(currentEnvironmentDewPoint) + "\""
+
+  "},"
+
+  "\"reservior_temperature\":"
+
+  "\"" + String(currentReservoirTemperature) + "\","
+
+  "\"fridge_status\":";
+
+  if(FridgeOn)
+  {
+    json_Packet += "\"On\"";
+  }
+  else
+  {
+    json_Packet += "\"Off\", ";
+  }
+
+  json_Packet += "\"override_status\":";
+
+  if(OverRide)
+  {
+    json_Packet += "\"On\"";
+  }
+  else
+  {
+    json_Packet += "\"Off\"";
+  }
+
+  json_Packet += "}";
+
+  oc_portal.send(200, "application/json;charset=utf-8", json_Packet);
+}
+
+void setupWebPortal()
+{
+  //oc_portal
+  oc_portal.on("/", HTTP_GET, showSimpleWebPortal);
+  oc_portal.on("/stats", HTTP_GET, sendStatsData);
+
+  oc_portal.begin();
+}
+#endif HAS_WIFI
+
+ void setEnvironmentAlert()
 {
 
   //TODO:  Define a config flag for whether or not to send signal to laser to pause on alert(s)
@@ -176,6 +479,21 @@ void setFridgeStatus()
  * #define TARGET_TEMPERATURE_MIN_ABOVE_DEWPOINT 1
 #define TARGET_TEMPERATURE_MAX_ABOVE_DEWPOINT 5
  */
+
+  int override_openchill = digitalRead(OVERRIDE_PIN);
+
+  if(override_openchill == LOW)
+  {
+      digitalWrite(FRIDGE_RELAY_PIN, HIGH);
+      FridgeOn = true;
+      OverRide = true;
+      return;
+  }
+  else
+  {
+      FridgeOn = false;
+      OverRide = false;
+  }
 
   /*
    * Check current temperature is between min and max target, if its between the range, fridge goes off if its on..
@@ -259,12 +577,14 @@ int cur_log_value = -1;
 */
   cur_log_value++;
   
-  #ifdef MKS_BASE_1_4
+  #ifdef MKS_BASE_1_0 //MKS_BASE_1_4 || MKS_BASE_1_0
 
     reservoir_temperature_log[cur_log_value] = map(currentReservoirVoltage, 1023, 0, -50, 50) - TEMP_CALIB_DIFF;
+//    reservoir_temperature_log[cur_log_value] = map(currentReservoirVoltage, 0, 512, 10, 50); // - TEMP_CALIB_DIFF;
+ //   reservoir_temperature_log[cur_log_value] = map(currentReservoirVoltage, 1023, 0, 0, 50);// - TEMP_CALIB_DIFF;
 
   #else
-	  
+  
 	  float R1 = 10000;
 	  float logR2, R2, T;
 	  float c1 = 1.009249522e-03, c2 = 2.378405444e-04, c3 = 2.019202697e-07;
@@ -292,6 +612,11 @@ int cur_log_value = -1;
     }
 
     currentReservoirTemperature = total_for_avg / WATER_TEMP_TOTAL_SAMPLES;
+
+    //#ifdef MKS_BASE_1_0
+    //  currentReservoirTemperature = currentReservoirTemperature / 2;
+    //#endif
+
     cur_log_value = -1;
   }
 
@@ -370,6 +695,9 @@ void fridge_relay_debug()
 
 void setup_lcd()
 {
+
+  #ifdef HAS_LCD
+
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("OpenChill System v2");
@@ -416,13 +744,17 @@ void setup_lcd()
   lcd.setCursor(9,3);
   lcd.print("??");
 
+  lcd.setCursor(13,3);
+  lcd.print("      ");
 
+  #endif
 }
 
 void update_lcd()
 {
 
-  //update environment temperature
+  #ifdef HAS_LCD
+
   lcd.setCursor(5,1);
 
   if(!isnan(currentEnvironmentTemperature))
@@ -485,6 +817,18 @@ void update_lcd()
 
   lcd.setCursor(9,3);
   lcd.print(FridgeOn);
+
+  if(OverRide == true)
+  {
+    lcd.setCursor(13,3);
+    lcd.print("[lock]");
+  }
+  else
+  {
+    lcd.setCursor(13,3);
+    lcd.print("      ");
+  }
+
 /*
   Serial.print("|T:");
   Serial.print(currentEnvironmentTemperature);
@@ -499,6 +843,8 @@ void update_lcd()
   Serial.print(",");
   Serial.println("^");
   */
+
+  #endif
 
 }
 
@@ -518,11 +864,6 @@ void loop ()
 
   setEnvironmentAlert(); /* Create any alerts based on environment data, such as max chiller temp reached */
 
-
-#ifdef DEBUGSERIAL
-  tmp_increment_counter();
-#endif
-
 #ifdef DEBUG
   debug_Out(false);
 #endif
@@ -539,7 +880,13 @@ void loop ()
 #ifdef PRODUCTION
 #endif
 
+#ifdef HAS_LCD
   update_lcd();
+#endif
+
+#ifdef HAS_WIFI
+  oc_portal.handleClient();
+#endif
 
   delay(250);
 
